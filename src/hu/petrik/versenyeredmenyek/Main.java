@@ -13,9 +13,28 @@ public class Main {
         try {
             beolvas(fajlNev);
             kiiras();
+            System.out.printf("Az olimpián %d sportág van\n",getSportagakSzama());
+            System.out.printf("Az olimpián %d versenyző vett részt\n",getversenyzokSzama());
         } catch (FileNotFoundException e) {
             System.out.printf("A(z) %s fájl név nem található",fajlNev);
         }
+    }
+
+    private static int getversenyzokSzama() {
+        List<String> versenyzok = new ArrayList<>();
+        for (Map.Entry<String, List<Eredmeny>> entry : sportagEredmenyek.entrySet()){
+            List<Eredmeny> eredmenyek = entry.getValue();
+            for (Eredmeny e : eredmenyek) {
+                if (!versenyzok.contains(e.getNev())){
+                    versenyzok.add(e.getNev());
+                }
+            }
+        }
+        return versenyzok.size();
+    }
+
+    private static int getSportagakSzama() {
+        return sportagEredmenyek.keySet().size();
     }
 
     private static void kiiras(){
